@@ -30,6 +30,7 @@ This analysis focuses on the following questions:
 - Pandas
 - Matplotlib
 - Jupyter Notebook
+- SQL
 - Git & GitHub
 
 ---
@@ -134,12 +135,16 @@ ecommerce-sales-analysis/
 │   └── processed/
 │       └── ecommerce_orders_clean.csv
 │
+├── dashboard/
+│
 ├── notebooks/
 │   └── 01_exploratory_data_analysis.ipynb
 │
 ├── reports/
 │   ├── data_quality_report.md
 │   └── business_insights.md
+│
+├── sql/
 │
 ├── src/
 │   └── generate_dataset.py
@@ -149,4 +154,65 @@ ecommerce-sales-analysis/
 │   ├── revenue_by_region.png
 │   └── category_revenue_profit.png
 │
+├── .gitignore
 └── README.md
+```
+
+---
+
+## 🚀 How to Run the Project
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Adriel-dC/ecommerce-sales-analysis.git
+cd ecommerce-sales-analysis
+```
+
+### 2. Create a virtual environment
+
+```bash
+py -3.13 -m venv .venv
+```
+
+### 3. Activate the environment
+
+Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+### 4. Install dependencies
+
+```bash
+pip install pandas matplotlib jupyter
+```
+
+### 5. Launch Jupyter Notebook
+
+```bash
+jupyter notebook
+```
+
+Then open:
+
+```text
+notebooks/01_exploratory_data_analysis.ipynb
+```
+
+---
+
+## 👤 About This Project
+
+This project was created as part of a Data Analyst portfolio to demonstrate practical skills in:
+
+- Data cleaning
+- Data validation
+- Exploratory data analysis
+- Business analysis
+- Data visualization
+- Python and Pandas
+- SQL
+- Git and GitHub
+- Communicating analytical findings
