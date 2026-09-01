@@ -2,23 +2,47 @@
 
 ## 📊 Project Overview
 
-This project analyzes an e-commerce sales dataset covering the period from January 2024 to December 2025.
+This project presents an end-to-end analysis of a synthetic e-commerce dataset covering the period from January 2024 to December 2025.
 
-The objective is to clean and validate the data, perform exploratory data analysis, identify business insights, and communicate the results through visualizations.
+The project combines **Python, Pandas, SQL, SQLite, data visualization, and Power BI** to clean and validate the data, explore business performance, identify actionable insights, and build an interactive dashboard for decision-making.
 
 > **Note:** This is a portfolio project using a synthetic dataset created for analytical purposes. It does not represent a real company or real customer data.
 
 ---
 
+## 📊 Power BI Dashboard
+
+![E-commerce Sales Dashboard](images/dashboard.png)
+
+The interactive Power BI dashboard provides a consolidated view of business performance, including:
+
+- Total Revenue
+- Total Profit
+- Total Orders
+- Profit Margin
+- Monthly Revenue Trend
+- Revenue and Profit by Category
+- Revenue by Region
+- Profit by Product
+- Order Profitability
+- Interactive filters for Product Category, Region, and Year
+
+The Power BI file is available at:
+
+`powerbi/ecommerce_sales_dashboard.pbix`
+
+---
+
 ## 🎯 Business Questions
 
-This analysis focuses on the following questions:
+The analysis focuses on the following questions:
 
 - How much revenue and profit did the business generate?
 - Which product categories generate the most revenue and profit?
 - Which categories have the highest profit margins?
 - Which regions generate the most revenue?
-- Which products contribute most to profit and losses?
+- Which products contribute most to profit?
+- How many orders are unprofitable?
 - Is there a relationship between discounts and unprofitable orders?
 - How does revenue change over time?
 
@@ -26,12 +50,15 @@ This analysis focuses on the following questions:
 
 ## 🛠️ Tools & Technologies
 
-- Python 3.13
-- Pandas
-- Matplotlib
-- Jupyter Notebook
-- SQL
-- Git & GitHub
+- **Python 3.13**
+- **Pandas** — data cleaning and analysis
+- **Matplotlib** — exploratory visualizations
+- **Jupyter Notebook** — exploratory data analysis
+- **SQL** — business analysis and aggregation
+- **SQLite** — relational database
+- **Power BI** — interactive dashboard and data visualization
+- **DAX** — calculated measures and dashboard metrics
+- **Git & GitHub** — version control and project documentation
 
 ---
 
@@ -79,35 +106,60 @@ Detailed documentation is available in [`reports/data_quality_report.md`](report
 
 ## 🔎 Key Business Insights
 
-### Home is the largest revenue category
+### 🏠 Home is the largest revenue category
 
 Home generated **$648,072.15** in revenue and **$219,897.66** in profit, making it the strongest category in terms of total financial contribution.
 
-### Fitness has the highest profit margin
+### 💪 Fitness has the highest profit margin
 
 Fitness achieved the highest category-level profit margin at **34.51%**.
 
-### Europe is the largest market
+### 🌍 Europe is the largest market
 
-Europe generated **$810,434.86** in revenue across **5,047 orders**, making it the company's largest regional market.
+Europe generated **$810,434.86** in revenue and **$269,102.83** in profit across **5,047 orders**, making it the largest regional market.
 
-### Oceania has the highest regional margin
+### 🌊 Oceania has the highest regional margin
 
 Oceania achieved a **33.81%** profit margin, slightly above Europe and North America.
 
-### Higher discounts are associated with unprofitable orders
+### ⚠️ 9.16% of orders are unprofitable
 
-There were **916 orders with negative profit**.
+Out of 10,000 orders:
 
-These orders had an average discount of **10.28%**, compared with **6.87%** for profitable orders.
+- **9,084 orders (90.84%)** were profitable.
+- **916 orders (9.16%)** generated a loss.
 
-This indicates a potential relationship between higher discounts and order-level profitability that should be investigated further.
+### 🏷️ Higher discounts are associated with unprofitable orders
+
+Orders with negative profit had an average discount of **10.28%**, compared with **6.87%** for profitable orders.
+
+This suggests that higher discount levels may contribute to reduced order-level profitability and should be monitored as part of the pricing strategy.
 
 More detailed findings are available in [`reports/business_insights.md`](reports/business_insights.md).
 
 ---
 
-## 📊 Visualizations
+## 🗄️ SQL Analysis
+
+The cleaned dataset was loaded into a SQLite database containing **10,000 orders**.
+
+SQL queries were used to validate and analyze:
+
+- Total revenue and profit
+- Order volume
+- Profit margins
+- Revenue and profit by product category
+- Regional performance
+- Product-level profitability
+- Profitable vs. loss-making orders
+- Discount behavior
+- Monthly sales performance
+
+This demonstrates the use of SQL to answer practical business questions independently from the Python analysis.
+
+---
+
+## 📊 Exploratory Visualizations
 
 ### Monthly Revenue
 
@@ -135,10 +187,14 @@ ecommerce-sales-analysis/
 │   └── processed/
 │       └── ecommerce_orders_clean.csv
 │
-├── dashboard/
+├── images/
+│   └── dashboard.png
 │
 ├── notebooks/
 │   └── 01_exploratory_data_analysis.ipynb
+│
+├── powerbi/
+│   └── ecommerce_sales_dashboard.pbix
 │
 ├── reports/
 │   ├── data_quality_report.md
@@ -154,6 +210,7 @@ ecommerce-sales-analysis/
 │   ├── revenue_by_region.png
 │   └── category_revenue_profit.png
 │
+├── ecommerce_sales_analysis.db
 ├── .gitignore
 └── README.md
 ```
@@ -201,18 +258,39 @@ Then open:
 notebooks/01_exploratory_data_analysis.ipynb
 ```
 
+### 6. Explore the Power BI Dashboard
+
+Open:
+
+```text
+powerbi/ecommerce_sales_dashboard.pbix
+```
+
+using Power BI Desktop.
+
+---
+
+## 💼 Skills Demonstrated
+
+This project demonstrates practical Data Analyst skills in:
+
+- Data Cleaning
+- Data Validation
+- Exploratory Data Analysis (EDA)
+- SQL Querying
+- Business Analysis
+- KPI Development
+- Data Visualization
+- Dashboard Design
+- Power BI
+- DAX
+- Python & Pandas
+- SQLite
+- Git & GitHub
+- Communicating Analytical Findings
+
 ---
 
 ## 👤 About This Project
 
-This project was created as part of a Data Analyst portfolio to demonstrate practical skills in:
-
-- Data cleaning
-- Data validation
-- Exploratory data analysis
-- Business analysis
-- Data visualization
-- Python and Pandas
-- SQL
-- Git and GitHub
-- Communicating analytical findings
+This project was developed as part of a **Data Analyst portfolio** to demonstrate an end-to-end analytical workflow, from raw data preparation and SQL analysis to business insights and an interactive Power BI dashboard.
