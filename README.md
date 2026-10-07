@@ -1,86 +1,219 @@
-# E-commerce Sales Analysis
+# E-commerce Sales & Profitability Analysis
 
-## 📊 Project Overview
+End-to-end data analytics project analyzing **10,000 e-commerce orders** to identify revenue drivers, profitability risks, discount behavior, and product-level opportunities.
 
-This project presents an end-to-end analysis of a synthetic e-commerce dataset covering the period from January 2024 to December 2025.
+The project combines **Python, SQL, SQLite, Power BI, DAX, and business analysis** to transform raw transactional data into actionable recommendations.
 
-The project combines **Python, Pandas, SQL, SQLite, data visualization, and Power BI** to clean and validate the data, explore business performance, identify actionable insights, and build an interactive dashboard for decision-making.
-
-> **Note:** This is a portfolio project using a synthetic dataset created for analytical purposes. It does not represent a real company or real customer data.
+> **Portfolio project:** The dataset is synthetic and was created for analytical purposes. It does not represent a real company or real customers.
 
 ---
 
-## 📊 Power BI Dashboard
+## Power BI Dashboard
 
 ![E-commerce Sales Dashboard](images/dashboard.png)
 
-The interactive Power BI dashboard provides a consolidated view of business performance, including:
+The Power BI dashboard provides an executive view of:
 
-- Total Revenue
-- Total Profit
-- Total Orders
-- Profit Margin
-- Monthly Revenue Trend
-- Revenue and Profit by Category
-- Revenue by Region
-- Profit by Product
-- Order Profitability
-- Interactive filters for Product Category, Region, and Year
+- Revenue and profit
+- Profit margin
+- Order volume
+- Monthly performance
+- Category performance
+- Regional performance
+- Product profitability
+- Loss-making orders
+- Interactive category, region, and year filters
 
-The Power BI file is available at:
+The Power BI file is available in:
 
 `powerbi/ecommerce_sales_dashboard.pbix`
 
 ---
 
-## 🎯 Business Questions
+## Business Problem
 
-The analysis focuses on the following questions:
+The objective was not only to measure sales performance, but to understand:
 
-- How much revenue and profit did the business generate?
-- Which product categories generate the most revenue and profit?
-- Which categories have the highest profit margins?
-- Which regions generate the most revenue?
-- Which products contribute most to profit?
-- How many orders are unprofitable?
-- Is there a relationship between discounts and unprofitable orders?
-- How does revenue change over time?
-
----
-
-## 🛠️ Tools & Technologies
-
-- **Python 3.13**
-- **Pandas** — data cleaning and analysis
-- **Matplotlib** — exploratory visualizations
-- **Jupyter Notebook** — exploratory data analysis
-- **SQL** — business analysis and aggregation
-- **SQLite** — relational database
-- **Power BI** — interactive dashboard and data visualization
-- **DAX** — calculated measures and dashboard metrics
-- **Git & GitHub** — version control and project documentation
+- Which categories and products drive revenue and profit?
+- Which markets contribute most to the business?
+- Where is profitability being lost?
+- How are discounts associated with order profitability?
+- Which products require pricing or cost attention?
+- How do shipping costs affect lower-priced products?
+- How does business performance change over time?
 
 ---
 
-## 🧹 Data Cleaning
+## Executive KPIs
 
-The raw dataset originally contained:
+| KPI | Result |
+|---|---:|
+| Revenue | **$1,614,512.83** |
+| Profit | **$537,122.14** |
+| Profit Margin | **33.27%** |
+| Orders | **10,000** |
+| Average Order Value | **$161.45** |
+| Loss-Making Orders | **916 (9.16%)** |
 
-- 10,025 records
-- 18 columns
+---
 
-The following data quality issues were identified and addressed:
+## Key Findings
+
+### Higher discounts are associated with greater profitability risk
+
+Loss risk increases progressively across discount bands.
+
+| Discount Band | Average Profit | Loss Order Rate |
+|---|---:|---:|
+| No Discount | $66.04 | 5.89% |
+| 0-5% | $58.06 | 7.94% |
+| 5-10% | $47.48 | 9.45% |
+| 10-15% | $42.12 | 11.71% |
+| 15%+ | $30.97 | **17.10%** |
+
+Orders with discounts of **15% or more** have a loss rate approximately **2.9x higher** than orders without discounts.
+
+This is an association rather than evidence that discounting alone causes losses.
+
+---
+
+### Profitability risk is concentrated in specific products
+
+Several lower-priced products have substantially higher loss-order rates.
+
+| Product | Revenue | Margin | Loss Order Rate |
+|---|---:|---:|---:|
+| USB-C Hub | $57,845 | 27.52% | 13.69% |
+| Desk Lamp | $47,642 | 26.60% | 17.10% |
+| Travel Mug | $33,737 | 26.03% | 23.99% |
+| Water Bottle | $31,679 | 27.68% | **24.16%** |
+
+Water Bottle and Travel Mug are the strongest candidates for pricing, discount, and shipping review.
+
+---
+
+### Shipping and discounting combine to pressure margins
+
+Loss-making orders among the higher-risk products consistently show both higher discounts and higher shipping costs.
+
+For **USB-C Hub**:
+
+- Average discount on profitable orders: **6.28%**
+- Average discount on loss orders: **12.13%**
+- Average shipping on profitable orders: **$13.40**
+- Average shipping on loss orders: **$19.89**
+
+For lower-priced products, this combination can materially reduce order-level profitability.
+
+---
+
+### Home leads financial contribution
+
+Home generated:
+
+- **$648,072.15 revenue**
+- **$219,897.66 profit**
+
+It is the largest category by total financial contribution.
+
+Fitness, however, achieved the highest category-level profit margin at **34.51%**.
+
+---
+
+### Europe leads in scale
+
+Europe generated:
+
+- **$810,434.86 revenue**
+- **5,047 orders**
+
+It is the largest regional market in the dataset.
+
+Oceania recorded the highest regional margin at **33.81%**.
+
+---
+
+## Business Recommendations
+
+Based on the analysis, the business should prioritize:
+
+1. **Reviewing high-discount orders**  
+   Evaluate approval or minimum-margin controls for discounts of 15% or more.
+
+2. **Investigating Water Bottle and Travel Mug economics**  
+   Review pricing, unit economics, discount eligibility, and shipping rules.
+
+3. **Evaluating shipping thresholds for lower-priced products**  
+   Consider minimum order values, bundling, or product-specific shipping policies.
+
+4. **Protecting strong-performing products**  
+   High-revenue products such as Office Chair and Air Purifier currently combine scale with strong profitability.
+
+5. **Monitoring profitability beyond revenue**  
+   Product monitoring should combine revenue, profit margin, loss rate, discounts, and shipping costs.
+
+Detailed analysis is available in [`reports/business_insights.md`](reports/business_insights.md).
+
+---
+
+## SQL Analysis
+
+The cleaned dataset was loaded into SQLite for independent business analysis.
+
+The SQL layer includes:
+
+- Aggregations and KPI calculations
+- `CASE`-based segmentation
+- Common Table Expressions (CTEs)
+- Window functions
+- `LAG()` for month-over-month analysis
+- `RANK()` and `PARTITION BY`
+- Revenue contribution analysis
+- Product-level profitability
+- Discount-band analysis
+- Customer revenue ranking
+- Monthly margin analysis
+
+Example analytical workflow:
+
+```sql
+WITH monthly_sales AS (
+    SELECT
+        strftime('%Y-%m', order_date) AS month,
+        SUM(revenue) AS revenue
+    FROM orders
+    GROUP BY strftime('%Y-%m', order_date)
+)
+SELECT
+    month,
+    revenue,
+    LAG(revenue) OVER (ORDER BY month) AS previous_month_revenue
+FROM monthly_sales;
+```
+
+Full SQL analysis:
+
+[`sql/01_business_analysis.sql`](sql/01_business_analysis.sql)
+
+---
+
+## Data Quality & Preparation
+
+The raw dataset contained **10,025 rows and 18 columns**.
+
+The preparation process addressed:
 
 - Duplicate records
 - Missing customer names
 - Missing payment methods
 - Inconsistent product categories
 - Invalid discount values
-- Date fields stored as text
+- Date type conversion
+- Numeric validation
 
-After cleaning and validation, the final dataset contains:
+The final analytical dataset contains:
 
-- **10,000 records**
+- **10,000 orders**
 - **18 columns**
 - No duplicate records
 - No invalid quantities
@@ -88,78 +221,13 @@ After cleaning and validation, the final dataset contains:
 - No invalid unit costs
 - No invalid revenue values
 
-Detailed documentation is available in [`reports/data_quality_report.md`](reports/data_quality_report.md).
+Detailed validation results:
+
+[`reports/data_quality_report.md`](reports/data_quality_report.md)
 
 ---
 
-## 📈 Key Performance Indicators
-
-| KPI | Value |
-|---|---:|
-| Total Revenue | **$1,614,512.83** |
-| Total Profit | **$537,122.14** |
-| Profit Margin | **33.27%** |
-| Total Orders | **10,000** |
-| Average Order Value | **$161.45** |
-
----
-
-## 🔎 Key Business Insights
-
-### 🏠 Home is the largest revenue category
-
-Home generated **$648,072.15** in revenue and **$219,897.66** in profit, making it the strongest category in terms of total financial contribution.
-
-### 💪 Fitness has the highest profit margin
-
-Fitness achieved the highest category-level profit margin at **34.51%**.
-
-### 🌍 Europe is the largest market
-
-Europe generated **$810,434.86** in revenue and **$269,102.83** in profit across **5,047 orders**, making it the largest regional market.
-
-### 🌊 Oceania has the highest regional margin
-
-Oceania achieved a **33.81%** profit margin, slightly above Europe and North America.
-
-### ⚠️ 9.16% of orders are unprofitable
-
-Out of 10,000 orders:
-
-- **9,084 orders (90.84%)** were profitable.
-- **916 orders (9.16%)** generated a loss.
-
-### 🏷️ Higher discounts are associated with unprofitable orders
-
-Orders with negative profit had an average discount of **10.28%**, compared with **6.87%** for profitable orders.
-
-This suggests that higher discount levels may contribute to reduced order-level profitability and should be monitored as part of the pricing strategy.
-
-More detailed findings are available in [`reports/business_insights.md`](reports/business_insights.md).
-
----
-
-## 🗄️ SQL Analysis
-
-The cleaned dataset was loaded into a SQLite database containing **10,000 orders**.
-
-SQL queries were used to validate and analyze:
-
-- Total revenue and profit
-- Order volume
-- Profit margins
-- Revenue and profit by product category
-- Regional performance
-- Product-level profitability
-- Profitable vs. loss-making orders
-- Discount behavior
-- Monthly sales performance
-
-This demonstrates the use of SQL to answer practical business questions independently from the Python analysis.
-
----
-
-## 📊 Exploratory Visualizations
+## Exploratory Analysis
 
 ### Monthly Revenue
 
@@ -175,122 +243,156 @@ This demonstrates the use of SQL to answer practical business questions independ
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 ecommerce-sales-analysis/
-│
-├── data/
-│   ├── raw/
-│   │   └── ecommerce_orders_raw.csv
-│   │
-│   └── processed/
-│       └── ecommerce_orders_clean.csv
-│
-├── images/
-│   └── dashboard.png
-│
-├── notebooks/
-│   └── 01_exploratory_data_analysis.ipynb
-│
-├── powerbi/
-│   └── ecommerce_sales_dashboard.pbix
-│
-├── reports/
-│   ├── data_quality_report.md
-│   └── business_insights.md
-│
-├── sql/
-│
-├── src/
-│   └── generate_dataset.py
-│
-├── visualizations/
-│   ├── monthly_revenue.png
-│   ├── revenue_by_region.png
-│   └── category_revenue_profit.png
-│
-├── ecommerce_sales_analysis.db
-├── .gitignore
-└── README.md
+|
+|-- data/
+|   |-- raw/
+|   |   `-- ecommerce_orders_raw.csv
+|   `-- processed/
+|       `-- ecommerce_orders_clean.csv
+|
+|-- images/
+|   `-- dashboard.png
+|
+|-- notebooks/
+|   `-- 01_exploratory_data_analysis.ipynb
+|
+|-- powerbi/
+|   `-- ecommerce_sales_dashboard.pbix
+|
+|-- reports/
+|   |-- business_insights.md
+|   `-- data_quality_report.md
+|
+|-- sql/
+|   `-- 01_business_analysis.sql
+|
+|-- src/
+|   |-- generate_dataset.py
+|   `-- load_data_to_sqlite.py
+|
+|-- visualizations/
+|   |-- category_revenue_profit.png
+|   |-- monthly_revenue.png
+|   `-- revenue_by_region.png
+|
+|-- ecommerce_sales_analysis.db
+|-- .gitignore
+`-- README.md
 ```
 
 ---
 
-## 🚀 How to Run the Project
+## Analytical Workflow
 
-### 1. Clone the repository
+```text
+Raw Data
+   |
+   v
+Data Cleaning & Validation
+   |
+   v
+Processed Dataset
+   |
+   +----------------+
+   |                |
+   v                v
+Python / EDA      SQLite / SQL
+   |                |
+   +-------+--------+
+           |
+           v
+     Business Analysis
+           |
+           v
+     Power BI Dashboard
+           |
+           v
+ Business Recommendations
+```
+
+---
+
+## Tools & Technologies
+
+**Python / Pandas**  
+Data generation, cleaning, validation, and exploratory analysis.
+
+**SQL / SQLite**  
+Business analysis, segmentation, ranking, temporal analysis, and profitability investigation.
+
+**Power BI / DAX**  
+Interactive dashboard, KPI monitoring, filtering, and executive reporting.
+
+**Matplotlib / Jupyter Notebook**  
+Exploratory analysis and supporting visualizations.
+
+**Git / GitHub**  
+Version control and project documentation.
+
+---
+
+## How to Run
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/Adriel-dC/ecommerce-sales-analysis.git
 cd ecommerce-sales-analysis
 ```
 
-### 2. Create a virtual environment
-
-```bash
-py -3.13 -m venv .venv
-```
-
-### 3. Activate the environment
-
-Windows PowerShell:
+Create and activate a virtual environment:
 
 ```powershell
+py -3.13 -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
-### 4. Install dependencies
+Install the required packages:
 
 ```bash
 pip install pandas matplotlib jupyter
 ```
 
-### 5. Launch Jupyter Notebook
+Generate or inspect the dataset, run the exploratory notebook, load the processed data into SQLite, and execute the SQL analysis.
 
-```bash
-jupyter notebook
-```
-
-Then open:
-
-```text
-notebooks/01_exploratory_data_analysis.ipynb
-```
-
-### 6. Explore the Power BI Dashboard
-
-Open:
+The Power BI dashboard can be opened with Power BI Desktop using:
 
 ```text
 powerbi/ecommerce_sales_dashboard.pbix
 ```
 
-using Power BI Desktop.
-
 ---
 
-## 💼 Skills Demonstrated
+## Skills Demonstrated
 
-This project demonstrates practical Data Analyst skills in:
-
-- Data Cleaning
-- Data Validation
-- Exploratory Data Analysis (EDA)
-- SQL Querying
+- Data Cleaning & Validation
+- Exploratory Data Analysis
+- Advanced SQL
+- CTEs & Window Functions
 - Business Analysis
 - KPI Development
-- Data Visualization
-- Dashboard Design
+- Profitability Analysis
+- Product & Regional Analysis
 - Power BI
 - DAX
 - Python & Pandas
 - SQLite
-- Git & GitHub
-- Communicating Analytical Findings
+- Data Visualization
+- Analytical Communication
+- Business Recommendations
 
 ---
 
-## 👤 About This Project
+## Conclusion
 
-This project was developed as part of a **Data Analyst portfolio** to demonstrate an end-to-end analytical workflow, from raw data preparation and SQL analysis to business insights and an interactive Power BI dashboard.
+The analysis shows that strong overall profitability can hide meaningful product-level risk.
+
+Higher discounts are associated with increasing loss rates, while several lower-priced products experience additional margin pressure from shipping costs.
+
+The resulting recommendation is not to apply broad pricing changes, but to focus management attention on **high-discount transactions, shipping economics, and the highest-risk SKUs**.
+
+This project demonstrates an end-to-end analytical workflow from raw data preparation to SQL analysis, dashboard development, and evidence-based business recommendations.
